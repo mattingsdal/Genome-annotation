@@ -1,1 +1,8 @@
+# Extracts GFF and FASTA files from MAKER run
 
+base=maker2
+
+module load maker
+
+gff3_merge  -d $base.maker.output/$base\_master_datastore_index.log
+fasta_merge -d $base.maker.output/$base\_master_datastore_index.log
