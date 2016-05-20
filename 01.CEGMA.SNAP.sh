@@ -16,3 +16,5 @@ fathom genome.ann genome.dna -categorize 1000
 fathom -export 1000 -plus uni.ann uni.dna
 forge export.ann export.dn
 hmm-assembler.pl $genome . > ../$genome.cegmasnap.hmm
+
+# get / plot interesting CEGMA output
