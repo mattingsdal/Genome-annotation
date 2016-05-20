@@ -6,3 +6,23 @@ module load maker
 
 gff3_merge  -d $base.maker.output/$base\_master_datastore_index.log
 fasta_merge -d $base.maker.output/$base\_master_datastore_index.log
+
+# give names to maker genes
+maker_map_ids --prefix SYMME_ $base.all.gff > $base.all.id.map
+
+# append names to files
+cp $base.all.gff.gff $base.renamed.gff
+
+cp $base.all.maker.proteins.fasta $base.maker.proteins.renamed.fasta
+cp $base.all.maker.transcripts.fasta $base.maker.transcripts.renamed.fasta
+
+
+#### TO DO
+cp output.iprscan output.renamed.iprscan
+cp output.blastp output.renamed.blastp
+
+map_gff_ids hsap_contig.map hsap_contig.renamed.gff
+map_fasta_ids hsap_contig.map hsap_contig.maker.proteins.renamed.fasta
+map_fasta_ids hsap_contig.map hsap_contig.maker.transcripts.renamed.fasta
+map_data_ids hsap_contig.map output.renamed.iprscan
+map_data_ids hsap_contig.map output.renamed.blastp
