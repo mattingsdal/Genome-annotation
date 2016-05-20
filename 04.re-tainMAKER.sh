@@ -10,14 +10,15 @@ gff3_merge -d $base.maker.output/$base\_master_datastore_index.log
 mkdir $base.hmm
 cd $base.hmm
 
+############### SNAP ############### 
 maker2zff -c 0 -e 0 -o 0 ../$base.all.gff   # c e o options in effect due to missing EST data
 fathom genome.ann genome.dna -categorize 1000
 fathom -export 1000 -plus uni.ann uni.dna
 forge export.ann export.dna
 hmm-assembler.pl $base . > ../$base.snap.hmm
 
-### extract maker predictions and make Augustus hmm profiles
-# prepare cdna and species names for augustus:
+############### Augustus ############### 
+
 species=corkwing
 cd $base.hmm
 zff2gff3.pl genome.ann | perl -plne 's/\t(\S+)$/\t\.\t$1/' >genome.gff3
