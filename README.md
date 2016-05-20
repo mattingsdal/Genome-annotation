@@ -1,6 +1,6 @@
 # Genome-annotation
 
-Annotation using MAKER using a two stage process.
+Annotation using MAKER using a two stage process:
   1. Run CEGMA and extract HMM profiles to feed SNAP during MAKER
   2. Run GeneMark-ES and extract HMM to feed GeneMark during MAKER
   3. Run MAKER first time
