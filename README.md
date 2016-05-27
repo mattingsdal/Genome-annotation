@@ -1,4 +1,5 @@
 # Genome-annotation
+# adopted by GenoAnnoFlow
 
 Annotation using MAKER using a two stage process. Manual editing of maker CTL files is required.
   1. Run CEGMA and extract HMM profiles to feed SNAP during MAKER
