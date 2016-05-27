@@ -4,8 +4,8 @@ module load maker
 base=test_genome
 genome=test_genome.fasta
 
-mkdir $base.2nd
-cd $base.2nd
+mkdir $maker2
+cd $maker2
 
 
 # convert this GFF to a snap model:
