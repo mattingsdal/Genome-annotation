@@ -4,18 +4,18 @@ module load maker
 base=test_genome
 genome=test_genome.fasta
 
-gff3_merge -d $base.maker.output/$base\_master_datastore_index.log
+mkdir $base.2nd
+cd $base.2nd
+
 
 # convert this GFF to a snap model:
-mkdir $base.hmm
-cd $base.hmm
-
-############### SNAP ############### 
-maker2zff -c 0 -e 0 -o 0 ../$base.all.gff   # c e o options in effect due to missing EST data
-fathom genome.ann genome.dna -categorize 1000
+############### SNAP ############### (add -c and -e to not apply est filtering)
+gff3_merge -d ../$base.maker.output/$base\_master_datastore_index.log
+maker2zff -c 0 -e 0 -x 0.5 $base.all.gff
+fathom -categorize 1000 genome.ann genome.dna
 fathom -export 1000 -plus uni.ann uni.dna
 forge export.ann export.dna
-hmm-assembler.pl $base . > ../$base.snap.hmm
+hmm-assembler.pl $base . > $base.snap.2nd.hmm
 
 ############### Augustus ############### 
 
