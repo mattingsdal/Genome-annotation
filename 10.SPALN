@@ -1,0 +1,29 @@
+### download relevant genomes from NCBI genomes using Eupercaria filter
+### create searchable genomes
+
+for D in *mfa.gz
+	do
+	makeidx.pl -ipn $D
+	done
+
+
+
+
+
+# search in genome for proteins and return binary grd file
+
+for G in *mfa.gz
+	do
+	genome=$(echo $G | cut -f 1  -d ".")
+	spaln -t2 -Q7 -O12 -LS -yS -TFish_mdl -o $genome -d$genome tilapia.PROTEINS.fasta
+	done
+
+
+
+
+for G in *mfa.gz
+	do
+	genome=$(echo $G | cut -f 1  -d ".")
+	spaln -t1 -Q7 -O7 -LS -yS -TFish_mdl -o $genome_aa -d$genome tilapia.PROTEINS.fasta
+	done
+
