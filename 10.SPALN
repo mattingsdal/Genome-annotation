@@ -24,6 +24,6 @@ for G in *mfa.gz
 for G in *mfa.gz
 	do
 	genome=$(echo $G | cut -f 1  -d ".")
-	spaln -t1 -Q7 -O7 -LS -yS -TFish_mdl -o $genome_aa -d$genome tilapia.PROTEINS.fasta
+	spaln -t1 -Q7 -O7 -LS -yS -TFish_mdl -o ${genome}_aa -d$genome tilapia.PROTEINS.fasta
 	done
 
