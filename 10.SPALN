@@ -27,3 +27,38 @@ for G in *mfa.gz
 	spaln -t1 -Q7 -O7 -LS -yS -TFish_mdl -o ${genome}_aa -d$genome tilapia.PROTEINS.fasta
 	done
 
+
+###### format output
+### extract protein ID
+awk -F"|" '{print $3}' tilapia.PROTEINS.fasta | sed '/^$/d' >tilapia.PROTEINS_ID.fasta
+awk '{print $1}' tilapia.PROTEINS_ID.fasta >ID
+
+##format output from spaln to only include homology ID
+for G in *_aa
+	do
+	sed '/^;/ d' $G | awk -F" " '{print $10}' | sed '/^$/d' | awk '{print ">"$0}' > ${G}_ID 
+	done
+
+## replace fasta header with homology ID
+for G in *_aa
+	do
+	perl rename.pl ${G}_ID ${G}_AA > ${G}_final
+	done
+
+## replace organism ID in fasta file
+sed 's/ORENI/ANOFI/g' Anoplopoma_fimbria_aa_final >Anoplopoma_fimbria_proteins
+sed 's/ORENI/COTRH/g' Cottus_rhenanus_aa_final >Cottus_rhenanus_proteins
+sed 's/ORENI/DICLA/g' Dicentrarchus_labrax_aa_final >Dicentrarchus_labrax_proteins
+sed 's/ORENI/GASAC/g' Gasterosteus_aculeatus_aa_final >Gasterosteus_aculeatus_proteins
+sed 's/ORENI/LABBE/g' Labrus_bergylta_aa_final >Labrus_bergylta_proteins
+sed 's/ORENI/LARCR/g' Larimichthys_crocea_aa_final >Larimichthys_crocea_proteins
+sed 's/ORENI/MIIMI/g' Miichthys_miiuy_aa_final >Miichthys_miiuy_proteins
+sed 's/ORENI/MOLMO/g' Mola_mola_aa_final >Mola_mola_proteins
+sed 's/ORENI/MORSA/g' Morone_saxatilis_aa_final >Morone_saxatilis_proteins
+sed 's/ORENI/NOTCO/g' Notothenia_coriiceps_aa_final >Notothenia_coriiceps_proteins
+sed 's/ORENI/SEBNI/g' Sebastes_nigrocinctus_aa_final >Sebastes_nigrocinctus_proteins
+sed 's/ORENI/SEBRU/g' Sebastes_rubrivinctus_aa_final >Sebastes_rubrivinctus_proteins
+sed 's/ORENI/SYMME/g' symphodus_melops_aa_final >symphodus_melops_proteins
+sed 's/ORENI/TAKFL/g' Takifugu_flavidus_aa_final >Takifugu_flavidus_proteins
+sed 's/ORENI/TAKRU/g' Takifugu_rubripes_aa_final >Takifugu_rubripes_proteins
+sed 's/ORENI/TETNI/g' Tetraodon_nigroviridis_aa_final >Tetraodon_nigroviridis_proteins
