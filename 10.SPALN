@@ -90,51 +90,36 @@ grep -Fx -f 13 Takifugu_rubripes.grd_filtered > 14
 grep -Fx -f 14 Tetraodon_nigroviridis.grd_filtered > COMMON
 
 ### the file COMMON now conatins the intersect between all id's
-
-
+## extract common proteins in all species
+for G in *aa_QC
+	do
+	pyfasta extract --fasta $G --file COMMON --header >${G}.common	
+	done
 
 
 ## replace organism ID in fasta file
-sed 's/ORENI/ANOFI/g' Anoplopoma_fimbria_aa_final >Anoplopoma_fimbria_proteins
-sed 's/ORENI/COTRH/g' Cottus_rhenanus_aa_final >Cottus_rhenanus_proteins
-sed 's/ORENI/DICLA/g' Dicentrarchus_labrax_aa_final >Dicentrarchus_labrax_proteins
-sed 's/ORENI/GASAC/g' Gasterosteus_aculeatus_aa_final >Gasterosteus_aculeatus_proteins
-sed 's/ORENI/LABBE/g' Labrus_bergylta_aa_final >Labrus_bergylta_proteins
-sed 's/ORENI/LARCR/g' Larimichthys_crocea_aa_final >Larimichthys_crocea_proteins
-sed 's/ORENI/MIIMI/g' Miichthys_miiuy_aa_final >Miichthys_miiuy_proteins
-sed 's/ORENI/MOLMO/g' Mola_mola_aa_final >Mola_mola_proteins
-sed 's/ORENI/MORSA/g' Morone_saxatilis_aa_final >Morone_saxatilis_proteins
-sed 's/ORENI/NOTCO/g' Notothenia_coriiceps_aa_final >Notothenia_coriiceps_proteins
-sed 's/ORENI/SEBNI/g' Sebastes_nigrocinctus_aa_final >Sebastes_nigrocinctus_proteins
-sed 's/ORENI/SEBRU/g' Sebastes_rubrivinctus_aa_final >Sebastes_rubrivinctus_proteins
-sed 's/ORENI/SYMME/g' symphodus_melops_aa_final >symphodus_melops_proteins
-sed 's/ORENI/TAKFL/g' Takifugu_flavidus_aa_final >Takifugu_flavidus_proteins
-sed 's/ORENI/TAKRU/g' Takifugu_rubripes_aa_final >Takifugu_rubripes_proteins
-sed 's/ORENI/TETNI/g' Tetraodon_nigroviridis_aa_final >Tetraodon_nigroviridis_proteins
+sed 's/ORENI/ANOFI/g' Anoplopoma_fimbria_aa_QC.common >Anoplopoma_fimbria_proteins
+sed 's/ORENI/COTRH/g' Cottus_rhenanus_aa_QC.common >Cottus_rhenanus_proteins
+sed 's/ORENI/DICLA/g' Dicentrarchus_labrax_aa_QC.common >Dicentrarchus_labrax_proteins
+sed 's/ORENI/GASAC/g' Gasterosteus_aculeatus_aa_QC.common >Gasterosteus_aculeatus_proteins
+sed 's/ORENI/LABBE/g' Labrus_bergylta_aa_QC.common >Labrus_bergylta_proteins
+sed 's/ORENI/LARCR/g' Larimichthys_crocea_aa_QC.common >Larimichthys_crocea_proteins
+sed 's/ORENI/MIIMI/g' Miichthys_miiuy_aa_QC.common >Miichthys_miiuy_proteins
+sed 's/ORENI/MOLMO/g' Mola_mola_aa_QC.common >Mola_mola_proteins
+sed 's/ORENI/MORSA/g' Morone_saxatilis_aa_QC.common >Morone_saxatilis_proteins
+sed 's/ORENI/NOTCO/g' Notothenia_coriiceps_aa_QC.common >Notothenia_coriiceps_proteins
+sed 's/ORENI/SEBNI/g' Sebastes_nigrocinctus_aa_QC.common >Sebastes_nigrocinctus_proteins
+sed 's/ORENI/SEBRU/g' Sebastes_rubrivinctus_aa_QC.common >Sebastes_rubrivinctus_proteins
+sed 's/ORENI/SYMME/g' symphodus_melops_aa_QC.common >symphodus_melops_proteins
+sed 's/ORENI/TAKFL/g' Takifugu_flavidus_aa_QC.common >Takifugu_flavidus_proteins
+sed 's/ORENI/TAKRU/g' Takifugu_rubripes_aa_QC.common >Takifugu_rubripes_proteins
+sed 's/ORENI/TETNI/g' Tetraodon_nigroviridis_aa_QC.common >Tetraodon_nigroviridis_proteins
+
+
+# now *_proteins contains all homologs found in all species
 
 
 
-### intersect protein ID using sort & comm
 
-for G in *_aa_ID
-	do
-	sort $G > ${G}_sorted
-	done
-
-comm -12 Anoplopoma_fimbria_aa_ID_sorted Cottus_rhenanus_aa_ID_sorted >1
-comm -12 1 Dicentrarchus_labrax_aa_ID_sorted >2
-comm -12 2 Gasterosteus_aculeatus_aa_ID_sorted >3
-comm -12 3 Labrus_bergylta_aa_ID_sorted > 4
-comm -12 4 Larimichthys_crocea_aa_ID_sorted > 5
-comm -12 5 Miichthys_miiuy_aa_ID_sorted  > 6
-comm -12 6 Mola_mola_aa_ID_sorted > 7
-comm -12 7 Morone_saxatilis_aa_ID_sorted  > 8
-comm -12 8 Notothenia_coriiceps_aa_ID_sorted  > 9
-comm -12 9 Sebastes_nigrocinctus_aa_ID_sorted  > 10
-comm -12 10 Sebastes_rubrivinctus_aa_ID_sorted  > 11
-comm -12 11 symphodus_melops_aa_ID_sorted  > 12
-comm -12 12 Takifugu_flavidus_aa_ID_sorted  > 13
-comm -12 13 Takifugu_rubripes_aa_ID_sorted  > 14
-comm -12 14 Tetraodon_nigroviridis_aa_ID_sorted >  15
 
 
