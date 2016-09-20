@@ -45,6 +45,55 @@ for G in *_aa
 	perl rename.pl ${G}_ID ${G}_AA > ${G}_final
 	done
 
+### filter output for binary grd file and keep homology ID
+### 60 percent identity and 90% coverage
+
+for G in *grd
+	do
+	sortgrcd -C95 $G | awk -F" " '{if ($17>60) print $0}' | awk -F" " '{print $8}' > ${G}_filtered	
+	done
+
+### extract QC proteins from all proteins
+
+pyfasta extract --fasta Anoplopoma_fimbria_aa_final --file Anoplopoma_fimbria.grd_filtered --header >Anoplopoma_fimbria_aa_QC
+pyfasta extract --fasta Cottus_rhenanus_aa_final --file Cottus_rhenanus.grd_filtered --header >Cottus_rhenanus_aa_QC
+pyfasta extract --fasta Dicentrarchus_labrax_aa_final --file Dicentrarchus_labrax.grd_filtered --header >Dicentrarchus_labrax_aa_QC
+pyfasta extract --fasta Gasterosteus_aculeatus_aa_final --file Gasterosteus_aculeatus.grd_filtered --header >Gasterosteus_aculeatus_aa_QC
+pyfasta extract --fasta Labrus_bergylta_aa_final --file Labrus_bergylta.grd_filtered --header >Labrus_bergylta_aa_QC
+pyfasta extract --fasta Larimichthys_crocea_aa_final --file Larimichthys_crocea.grd_filtered --header >Larimichthys_crocea_aa_QC
+pyfasta extract --fasta Miichthys_miiuy_aa_final --file Miichthys_miiuy.grd_filtered --header >Miichthys_miiuy_aa_QC
+pyfasta extract --fasta Mola_mola_aa_final --file  Mola_mola.grd_filtered --header >Mola_mola_aa_QC
+pyfasta extract --fasta Morone_saxatilis_aa_final --file Morone_saxatilis.grd_filtered --header >Morone_saxatilis_aa_QC
+pyfasta extract --fasta Notothenia_coriiceps_aa_final --file Notothenia_coriiceps.grd_filtered --header  >Notothenia_coriiceps_aa_QC
+pyfasta extract --fasta Sebastes_nigrocinctus_aa_final --file Sebastes_nigrocinctus.grd_filtered --header >Sebastes_nigrocinctus_aa_QC
+pyfasta extract --fasta Sebastes_rubrivinctus_aa_final --file Sebastes_rubrivinctus.grd_filtered --header >Sebastes_rubrivinctus_aa_QC
+pyfasta extract --fasta symphodus_melops_aa_final --file symphodus_melops.grd_filtered --header >symphodus_melops_aa_QC
+pyfasta extract --fasta Takifugu_flavidus_aa_final --file Takifugu_flavidus.grd_filtered --header >Takifugu_flavidus_aa_QC
+pyfasta extract --fasta Takifugu_rubripes_aa_final --file Takifugu_rubripes.grd_filtered --header >Takifugu_rubripes_aa_QC
+pyfasta extract --fasta Tetraodon_nigroviridis_aa_final --file Tetraodon_nigroviridis.grd_filtered --header >Tetraodon_nigroviridis_aa_QC
+
+### intersect ID from all species
+grep -Fx -f  Anoplopoma_fimbria.grd_filtered Cottus_rhenanus.grd_filtered >1
+grep -Fx -f 1 Dicentrarchus_labrax.grd_filtered > 2
+grep -Fx -f 2 Gasterosteus_aculeatus.grd_filtered > 3
+grep -Fx -f 3 Labrus_bergylta.grd_filtered > 4
+grep -Fx -f 4 Larimichthys_crocea.grd_filtered > 5
+grep -Fx -f 5 Miichthys_miiuy.grd_filtered > 6
+grep -Fx -f 6 Mola_mola.grd_filtered > 7
+grep -Fx -f 7 Morone_saxatilis.grd_filtered > 8
+grep -Fx -f 8 Notothenia_coriiceps.grd_filtered > 9
+grep -Fx -f 9 Sebastes_nigrocinctus.grd_filtered > 10
+grep -Fx -f 10 Sebastes_rubrivinctus.grd_filtered > 11
+grep -Fx -f 11 symphodus_melops.grd_filtered > 12
+grep -Fx -f 12 Takifugu_flavidus.grd_filtered > 13
+grep -Fx -f 13 Takifugu_rubripes.grd_filtered > 14
+grep -Fx -f 14 Tetraodon_nigroviridis.grd_filtered > COMMON
+
+### the file COMMON now conatins the intersect between all id's
+
+
+
+
 ## replace organism ID in fasta file
 sed 's/ORENI/ANOFI/g' Anoplopoma_fimbria_aa_final >Anoplopoma_fimbria_proteins
 sed 's/ORENI/COTRH/g' Cottus_rhenanus_aa_final >Cottus_rhenanus_proteins
