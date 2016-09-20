@@ -62,3 +62,30 @@ sed 's/ORENI/SYMME/g' symphodus_melops_aa_final >symphodus_melops_proteins
 sed 's/ORENI/TAKFL/g' Takifugu_flavidus_aa_final >Takifugu_flavidus_proteins
 sed 's/ORENI/TAKRU/g' Takifugu_rubripes_aa_final >Takifugu_rubripes_proteins
 sed 's/ORENI/TETNI/g' Tetraodon_nigroviridis_aa_final >Tetraodon_nigroviridis_proteins
+
+
+
+### intersect protein ID using sort & comm
+
+for G in *_aa_ID
+	do
+	sort $G > ${G}_sorted
+	done
+
+comm -12 Anoplopoma_fimbria_aa_ID_sorted Cottus_rhenanus_aa_ID_sorted >1
+comm -12 1 Dicentrarchus_labrax_aa_ID_sorted >2
+comm -12 2 Gasterosteus_aculeatus_aa_ID_sorted >3
+comm -12 3 Labrus_bergylta_aa_ID_sorted > 4
+comm -12 4 Larimichthys_crocea_aa_ID_sorted > 5
+comm -12 5 Miichthys_miiuy_aa_ID_sorted  > 6
+comm -12 6 Mola_mola_aa_ID_sorted > 7
+comm -12 7 Morone_saxatilis_aa_ID_sorted  > 8
+comm -12 8 Notothenia_coriiceps_aa_ID_sorted  > 9
+comm -12 9 Sebastes_nigrocinctus_aa_ID_sorted  > 10
+comm -12 10 Sebastes_rubrivinctus_aa_ID_sorted  > 11
+comm -12 11 symphodus_melops_aa_ID_sorted  > 12
+comm -12 12 Takifugu_flavidus_aa_ID_sorted  > 13
+comm -12 13 Takifugu_rubripes_aa_ID_sorted  > 14
+comm -12 14 Tetraodon_nigroviridis_aa_ID_sorted >  15
+
+
