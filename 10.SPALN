@@ -117,7 +117,7 @@ sed 's/ORENI/TETNI/g' Tetraodon_nigroviridis_aa_QC.common >Tetraodon_nigroviridi
 
 
 # now *_proteins contains all homologs found in all species
-
+# TODO split the species specific proteins and create 1 fasta file pr- homolog
 
 
 
