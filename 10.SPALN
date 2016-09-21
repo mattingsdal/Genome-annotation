@@ -139,4 +139,10 @@ for G in *ALL.fa
 	muscle -in $G -out ${G}.clw
 	done
 
+# trim aligments
+for G in *msa.fa
+	do
+	~/software/trimal/source/trimal -in $G -fasta -automated1 -out $G.trimal.fasta
+	done
+	
 
