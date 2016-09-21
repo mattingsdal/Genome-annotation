@@ -125,5 +125,13 @@ for G in *_proteins
 	perl splitFasta.pl $G
 	done
 	
+sed 's/ORENI//g' COMMON >COMMON_ID
+
+## now loop through all individuals files and cat homologs onto one file pr. homolog
+while read ID; do
+  cat $ID* > ${ID}ALL.fa
+done <COMMON_ID
+
+
 
 
