@@ -145,4 +145,11 @@ for G in *msa.fa
 	~/software/trimal/source/trimal -in $G -fasta -automated1 -out $G.trimal.fasta
 	done
 	
+## remove unique identifiers
+for G in *trimal.fasta
+	do
+	sed 's/[a-zA-Z0-9]\{6\}_//' $G > $G.rdy
+	done
+
+python test3.py MSA/ >BIG
 
