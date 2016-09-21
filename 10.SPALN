@@ -148,8 +148,12 @@ for G in *msa.fa
 ## remove unique identifiers
 for G in *trimal.fasta
 	do
-	sed 's/[a-zA-Z0-9]\{6\}_//' $G > $G.rdy
+	sed 's/[a-zA-Z0-9]\{2,6\}_//' $G > $G.rdy
 	done
 
+scp *rdy MSA/
+
 python test3.py MSA/ >BIG
+
+~/software/FastTree BIG
 
