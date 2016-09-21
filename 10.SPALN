@@ -133,5 +133,10 @@ while read ID; do
 done <COMMON_ID
 
 
+# now perform the aligmnet producing msa fasta
+for G in *ALL.fa
+	do
+	muscle -in $G -out ${G}.clw
+	done
 
 
