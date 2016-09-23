@@ -10,12 +10,14 @@ for D in *mfa.gz
 
 
 
-# search in genome for proteins and return binary grd file
+# format genome  and search them for proteins and return binary grd file and protein sequences for tilapia homologs
 
 for G in *mfa.gz
 	do
 	genome=$(echo $G | cut -f 1  -d ".")
+	makeidx.pl -ipn $G
 	spaln -t2 -Q7 -O12 -LS -yS -TFish_mdl -o $genome -d$genome tilapia.PROTEINS.fasta
+	spaln -t2 -Q7 -O7 -LS -yS -TFish_mdl -o ${genome}_aa -d$genome tilapia.PROTEINS.fasta
 	done
 
 
