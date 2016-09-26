@@ -2,13 +2,13 @@
 ### create searchable genomes in .gz
 ### Run SPALN: format genome  and search them for proteins and return binary grd file and protein sequences for tilapia homologs
 
+# use M option to return more than 1 output
 for G in *mfa.gz
 	do
 	genome=$(echo $G | cut -f 1  -d ".")
 	makeidx.pl -ipn $G
 	spaln -t2 -Q7 -O12 -LS -yS -TFish_mdl -o $genome -d$genome tilapia.PROTEINS.fasta
-	spaln -t2 -Q7 -O7 -LS -yS -TFish_mdl -o ${genome}_aa -d$genome tilapia.PROTEINS.fasta
-	done
+	spaln -t2 -Q7 -O7 -LS -yS -TFish_mdl -o ${genome}_aa -d$genome tilapia.PROTEINS.fasta	
 
 
 ###### format output
@@ -20,6 +20,7 @@ awk '{print $1}' tilapia.PROTEINS_ID.fasta >ID
 for G in *_aa
 	do
 	sed '/^;/ d' $G | awk -F" " '{print $10}' | sed '/^$/d' | awk '{print ">"$0}' > ${G}_ID 
+	
 	done
 
 ## replace fasta header with homology ID
@@ -37,23 +38,12 @@ for G in *grd
 	done
 
 ### extract QC proteins from all proteins
+for G in *mfa.gz
+	do
+	genome=$(echo $G | cut -f 1  -d ".")
+ 	pyfasta extract --fasta ${genome}_aa_final --file ${genome}.grd_filtered --header >${genome}_aa_QC
+ 	done
 
-pyfasta extract --fasta Anoplopoma_fimbria_aa_final --file Anoplopoma_fimbria.grd_filtered --header >Anoplopoma_fimbria_aa_QC
-pyfasta extract --fasta Cottus_rhenanus_aa_final --file Cottus_rhenanus.grd_filtered --header >Cottus_rhenanus_aa_QC
-pyfasta extract --fasta Dicentrarchus_labrax_aa_final --file Dicentrarchus_labrax.grd_filtered --header >Dicentrarchus_labrax_aa_QC
-pyfasta extract --fasta Gasterosteus_aculeatus_aa_final --file Gasterosteus_aculeatus.grd_filtered --header >Gasterosteus_aculeatus_aa_QC
-pyfasta extract --fasta Labrus_bergylta_aa_final --file Labrus_bergylta.grd_filtered --header >Labrus_bergylta_aa_QC
-pyfasta extract --fasta Larimichthys_crocea_aa_final --file Larimichthys_crocea.grd_filtered --header >Larimichthys_crocea_aa_QC
-pyfasta extract --fasta Miichthys_miiuy_aa_final --file Miichthys_miiuy.grd_filtered --header >Miichthys_miiuy_aa_QC
-pyfasta extract --fasta Mola_mola_aa_final --file  Mola_mola.grd_filtered --header >Mola_mola_aa_QC
-pyfasta extract --fasta Morone_saxatilis_aa_final --file Morone_saxatilis.grd_filtered --header >Morone_saxatilis_aa_QC
-pyfasta extract --fasta Notothenia_coriiceps_aa_final --file Notothenia_coriiceps.grd_filtered --header  >Notothenia_coriiceps_aa_QC
-pyfasta extract --fasta Sebastes_nigrocinctus_aa_final --file Sebastes_nigrocinctus.grd_filtered --header >Sebastes_nigrocinctus_aa_QC
-pyfasta extract --fasta Sebastes_rubrivinctus_aa_final --file Sebastes_rubrivinctus.grd_filtered --header >Sebastes_rubrivinctus_aa_QC
-pyfasta extract --fasta symphodus_melops_aa_final --file symphodus_melops.grd_filtered --header >symphodus_melops_aa_QC
-pyfasta extract --fasta Takifugu_flavidus_aa_final --file Takifugu_flavidus.grd_filtered --header >Takifugu_flavidus_aa_QC
-pyfasta extract --fasta Takifugu_rubripes_aa_final --file Takifugu_rubripes.grd_filtered --header >Takifugu_rubripes_aa_QC
-pyfasta extract --fasta Tetraodon_nigroviridis_aa_final --file Tetraodon_nigroviridis.grd_filtered --header >Tetraodon_nigroviridis_aa_QC
 
 ### intersect ID from all species
 grep -Fx -f  Anoplopoma_fimbria.grd_filtered Cottus_rhenanus.grd_filtered >1
@@ -70,7 +60,12 @@ grep -Fx -f 10 Sebastes_rubrivinctus.grd_filtered > 11
 grep -Fx -f 11 symphodus_melops.grd_filtered > 12
 grep -Fx -f 12 Takifugu_flavidus.grd_filtered > 13
 grep -Fx -f 13 Takifugu_rubripes.grd_filtered > 14
-grep -Fx -f 14 Tetraodon_nigroviridis.grd_filtered > COMMON
+grep -Fx -f 14 Tetraodon_nigroviridis.grd_filtered > 15
+grep -Fx -f 15 Branchiostoma_floridae.grd_filtered > 16
+grep -Fx -f 16 Danio_rerio.grd_filtered > 17
+grep -Fx -f 17 Gadus_morhua.grd_filtered > 18
+grep -Fx -f 18 Oreochromis_niloticus.grd_filtered > COMMON
+
 
 ### the file COMMON now conatins the intersect between all id's
 ## extract common proteins in all species
