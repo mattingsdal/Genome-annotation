@@ -76,34 +76,26 @@ for G in *aa_QC
 
 
 ## replace organism ID in fasta file
-sed 's/ORENI/ANOFI/g' Anoplopoma_fimbria_aa_QC.common >Anoplopoma_fimbria_proteins
-sed 's/ORENI/COTRH/g' Cottus_rhenanus_aa_QC.common >Cottus_rhenanus_proteins
-sed 's/ORENI/DICLA/g' Dicentrarchus_labrax_aa_QC.common >Dicentrarchus_labrax_proteins
-sed 's/ORENI/GASAC/g' Gasterosteus_aculeatus_aa_QC.common >Gasterosteus_aculeatus_proteins
-sed 's/ORENI/LABBE/g' Labrus_bergylta_aa_QC.common >Labrus_bergylta_proteins
-sed 's/ORENI/LARCR/g' Larimichthys_crocea_aa_QC.common >Larimichthys_crocea_proteins
-sed 's/ORENI/MIIMI/g' Miichthys_miiuy_aa_QC.common >Miichthys_miiuy_proteins
-sed 's/ORENI/MOLMO/g' Mola_mola_aa_QC.common >Mola_mola_proteins
-sed 's/ORENI/MORSA/g' Morone_saxatilis_aa_QC.common >Morone_saxatilis_proteins
-sed 's/ORENI/NOTCO/g' Notothenia_coriiceps_aa_QC.common >Notothenia_coriiceps_proteins
-sed 's/ORENI/SEBNI/g' Sebastes_nigrocinctus_aa_QC.common >Sebastes_nigrocinctus_proteins
-sed 's/ORENI/SEBRU/g' Sebastes_rubrivinctus_aa_QC.common >Sebastes_rubrivinctus_proteins
-sed 's/ORENI/SYMME/g' symphodus_melops_aa_QC.common >symphodus_melops_proteins
-sed 's/ORENI/TAKFL/g' Takifugu_flavidus_aa_QC.common >Takifugu_flavidus_proteins
-sed 's/ORENI/TAKRU/g' Takifugu_rubripes_aa_QC.common >Takifugu_rubripes_proteins
-sed 's/ORENI/TETNI/g' Tetraodon_nigroviridis_aa_QC.common >Tetraodon_nigroviridis_proteins
+for G in *mfa.gz
+	do
+	genome=$(echo $G | cut -f 1  -d ".")
+	sed 's/ORENI/'"${genome}"'/g' ${genome}_aa_QC.common > ${genome}_proteins
+ 	done
 
 
 # now *_proteins contains all homologs found in all species
 # TODO split the species specific proteins and create 1 fasta file pr- homolog
 
+sed 's/ORENI//g' COMMON >COMMON_ID
+scp COMMON_ID test/
+mkdir test
+scp *_proteins test/
 cd test
 for G in *_proteins
 	do
 	perl splitFasta.pl $G
 	done
 	
-sed 's/ORENI//g' COMMON >COMMON_ID
 
 ## now loop through all individuals files and cat homologs onto one file pr. homolog
 while read ID; do
@@ -114,7 +106,7 @@ done <COMMON_ID
 # now perform the aligmnet producing msa fasta
 for G in *ALL.fa
 	do
-	muscle -in $G -out ${G}.clw
+	muscle -in $G -out ${G}.msa.fa
 	done
 
 # trim aligments
