@@ -162,3 +162,10 @@ for genome in *mfa.gz
 
 done
 
+
+# perform PFam search in protein database
+for genome in *gz_Pfam_RDY 
+        do
+	hmmsearch --cpu 3 -o ${genome}.hmmer.out --noali --tblout ${genome}.hmmer.table -E 1e-10 Pfam-A.hmm $genome
+	done
+
