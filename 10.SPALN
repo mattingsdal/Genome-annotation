@@ -127,3 +127,38 @@ python test3.py MSA/ >BIG
 
 ~/software/FastTree BIG
 
+
+
+
+###########################################
+### the following code used SPALN and HMM to sarch Pfam profiles
+
+
+# do SPALN
+for genome in *mfa.gz
+        do
+        spaln -M -t2 -Q7 -O4 -LS -yS -TFish_mdl -o${genome}_Pfam -d$genome tilapia.PROTEINS.fasta
+        spaln -M -t2 -Q7 -O7 -LS -yS -TFish_mdl -o${genome}_Pfam_aa -d$genome tilapia.PROTEINS.fasta
+done
+
+# first extract SPALN hits with more than 80% sequence identify and use keep hit ID, query ID and score as fasta identifier
+# prepare for HMMER sarch
+
+for genome in *mfa.gz
+        do
+
+	### extract QC proteins, create ID and remove duplicates
+	grep -w "@" ${genome}_Pfam | awk 'BEGIN { FS = " " } ; {if ($17>80) print $0}' | awk 'BEGIN { FS = " " } ; {print ">"$2"-"$8"-"$15"0"}' >file
+	awk '/^>/ { if (id[$1]++ == 0) printing = 1; else printing = 0 } { if (printing) print }' file >file1
+	sed 's/>//g' file1 >query
+
+	# extract protein sequences and format ID
+	grep "^>" ${genome}_Pfam_aa | awk 'BEGIN { FS = " " } ; {print ">"$2"-"$10"-"$19}' > file2
+	perl rename.pl file2 Branchiostoma_floridae.mfa.gz_Pfam_aa | sed '/^;/ d' >file3
+	awk '/^>/ { if (id[$1]++ == 0) printing = 1; else printing = 0 } { if (printing) print }' file3 >db
+
+	# extract fasta for HMM search
+	./faSomeRecords db query ${genome}_Pfam_RDY
+
+done
+
