@@ -176,5 +176,49 @@ for genome in *gz_Pfam_RDY
 grep -w "#=GF ID" Pfam-A.hmm.dat | awk '{print $3}' ID
 
 # count using awk
-awk '{count[$3]++} END {for (word in count) print word, count[word]}' Cottus_rhenanus.mfa.gz_Pfam_RDY.hmmer.table 
+# awk '{count[$3]++} END {for (word in count) print word, count[word]}' Cottus_rhenanus.mfa.gz_Pfam_RDY.hmmer.table 
 
+
+R
+ID=as.matrix(read.table("ID"))
+file.names <- dir(pattern =".table")
+result=matrix(ncol=length(file.names),nrow=nrow(ID))
+row.names(result)=ID
+
+for (j in 1:length(file.names)) {
+	res=read.table(file.names[j],sep="")
+
+		for (i in 1:nrow(result)) {
+		result[i,j]=length(grep(ID[i],res[,3]))
+		}	
+}
+
+colnames(result)=file.names
+
+#Anoplopoma_fimbria.mfa.gz_Pfam_RDY:23032
+#Cottus_rhenanus.mfa.gz_Pfam_RDY:16236
+#Dicentrarchus_labrax.mfa.gz_Pfam_RDY:19153
+#Gasterosteus_aculeatus.mfa.gz_Pfam_RDY:14237
+#Labrus_bergylta.mfa.gz_Pfam_RDY:15984
+#Larimichthys_crocea.mfa.gz_Pfam_RDY:19217
+#Miichthys_miiuy.mfa.gz_Pfam_RDY:17544
+#Mola_mola.mfa.gz_Pfam_RDY:16133
+#Morone_saxatilis.mfa.gz_Pfam_RDY:19008
+#Notothenia_coriiceps.mfa.gz_Pfam_RDY:15293
+#Sebastes_nigrocinctus.mfa.gz_Pfam_RDY:18231
+#Sebastes_rubrivinctus.mfa.gz_Pfam_RDY:18521
+#symphodus_melops.mfa.gz_Pfam_RDY:17057
+#Takifugu_flavidus.mfa.gz_Pfam_RDY:12780
+#Takifugu_rubripes.mfa.gz_Pfam_RDY:13098
+
+n_wrasse=15984+17057
+n_non_wrasses=23032+16236+19153+14237+19217+17544+16133+19008+15293+18231+18521+12780+13098
+
+data=cbind(rowSums(wrasses),rowSums(non_wrasses),n_non_wrasse-rowSums(non_wrasses),n_wrasse)
+
+sig=matrix(ncol=1,nrow=nrow(data))
+for (i in 1:nrow(data)){
+	sig[i]=phyper(data[i,1],data[i,2],data[i,3],data[i,4])
+	}
+
+final=cbind(data,sig)
