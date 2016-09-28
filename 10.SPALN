@@ -168,4 +168,13 @@ for genome in *gz_Pfam_RDY
         do
 	hmmsearch --cpu 3 -o ${genome}.hmmer.out --noali --tblout ${genome}.hmmer.table -E 1e-10 Pfam-A.hmm $genome
 	done
+	
+	
+#### make massive matrix
+
+# first create index of names
+grep -w "#=GF ID" Pfam-A.hmm.dat | awk '{print $3}' ID
+
+# count using awk
+awk '{count[$3]++} END {for (word in count) print word, count[word]}' Cottus_rhenanus.mfa.gz_Pfam_RDY.hmmer.table 
 
