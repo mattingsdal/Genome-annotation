@@ -154,7 +154,7 @@ for genome in *mfa.gz
 
 	# extract protein sequences and format ID
 	grep "^>" ${genome}_Pfam_aa | awk 'BEGIN { FS = " " } ; {print ">"$2"-"$10"-"$19}' > file2
-	perl rename.pl file2 Branchiostoma_floridae.mfa.gz_Pfam_aa | sed '/^;/ d' >file3
+	perl rename.pl file2 ${genome}_Pfam_aa | sed '/^;/ d' >file3
 	awk '/^>/ { if (id[$1]++ == 0) printing = 1; else printing = 0 } { if (printing) print }' file3 >db
 
 	# extract fasta for HMM search
