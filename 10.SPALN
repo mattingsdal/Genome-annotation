@@ -21,14 +21,15 @@ awk '{print $1}' tilapia.PROTEINS_ID.fasta >ID
 ##format output from spaln to only include homology ID
 for G in *_aa
 	do
-	sed '/^;/ d' $G | awk -F" " '{print $10}' | sed '/^$/d' | awk '{print ">"$0}' > ${G}_ID 
-	
+	sed '/^;/ d' $G | awk -F" " '{print $10}' | sed '/^$/d' | awk '{print ">"$0}' > ${G}_ID
+	sed '/^;/ d' $G | awk -F" " '{print $10}' | sed '/^$/d' | awk '{print ">"$0}' > ${G}_cdna_ID
 	done
 
 ## replace fasta header with homology ID
 for G in *_aa
 	do
 	perl rename.pl ${G}_ID ${G}_AA > ${G}_final
+	perl rename.pl ${G}_cdna_ID ${G}_cdna | sed '/^;/ d' > ${G}_cdna_final
 	done
 
 ### filter output for binary grd file and keep homology ID
