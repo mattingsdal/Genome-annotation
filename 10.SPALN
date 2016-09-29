@@ -28,7 +28,7 @@ for G in *_aa
 ## replace fasta header with homology ID
 for G in *_aa
 	do
-	perl rename.pl ${G}_ID ${G}_AA > ${G}_final
+	perl rename.pl ${G}_ID ${G}_aa  | sed '/^;/ d' > ${G}_aa_final
 	perl rename.pl ${G}_cdna_ID ${G}_cdna | sed '/^;/ d' > ${G}_cdna_final
 	done
 
