@@ -10,7 +10,7 @@ for G in *mfa.gz
 	spaln -t2 -Q7 -O12 -LS -yS -TFish_mdl -o $genome -d$genome tilapia.PROTEINS.fasta
 	spaln -t2 -Q7 -O7 -LS -yS -TFish_mdl -o ${genome}_aa -d$genome tilapia.PROTEINS.fasta
 	spaln -t2 -Q7 -O6 -LS -yS -TFish_mdl -o ${genome}_cdna -d$genome tilapia.PROTEINS.fasta	
-
+	done
 
 
 ###### format output
