@@ -190,7 +190,7 @@ row.names(result)=ID
 
 for (j in 1:length(file.names)) {
 	res=read.table(file.names[j],sep="")
-
+	# res=tmp[tmp[,5]<1e-50,]
 		for (i in 1:nrow(result)) {
 		result[i,j]=length(grep(ID[i],res[,3]))
 		}	
@@ -214,10 +214,14 @@ colnames(result)=file.names
 #Takifugu_flavidus.mfa.gz_Pfam_RDY:12780
 #Takifugu_rubripes.mfa.gz_Pfam_RDY:13098
 
-n_wrasse=15984+17057
-n_non_wrasses=23032+16236+19153+14237+19217+17544+16133+19008+15293+18231+18521+12780+13098
+n_wrasses=15984+17057
+n_croaker_basses=17544+19217+14237+19008
 
-data=cbind(rowSums(wrasses),rowSums(non_wrasses),n_non_wrasse-rowSums(non_wrasses),n_wrasse)
+wrasses=cbind(result[,5],result[,13])
+croaker_basses=cbind(result[,3],result[,6:7],result[,9])
+
+
+data=cbind(rowSums(wrasses),rowSums(croaker_basses),n_croaker_basses-rowSums(croaker_basses),n_wrasses)
 
 sig=matrix(ncol=1,nrow=nrow(data))
 for (i in 1:nrow(data)){
