@@ -1,0 +1,14 @@
+module load busco
+export AUGUSTUS_CONFIG_PATH=/usit/abel/u1/mortema/software/augustus.2.5.5/config/
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_55.scf.fasta  -f -o fish_55.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.55 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_81.scf.fasta  -f -o fish_81.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.81 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_83.scf.fasta  -f -o fish_83.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.83 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_84.scf.fasta  -f -o fish_84.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.84 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_85.scf.fasta  -f -o fish_85.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.85 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_86.scf.fasta  -f -o fish_86.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.86 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_87.scf.fasta  -f -o fish_87.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.87 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_88.scf.fasta  -f -o fish_88.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.88 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_89.scf.fasta  -f -o fish_89.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.89 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_90.scf.fasta  -f -o fish_90.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.90 &
+nohup srun -A cees --cpus-per-task=10 --ntasks=1 --mem-per-cpu=1G --time=4320 busco.py -i fish_96.scf.fasta  -f -o fish_96.scf.fasta -m geno -c 10 -l actinopterygii_odb9 -sp BUSCO_Symphodus_melops_1765127795 >fish.96 &
+
